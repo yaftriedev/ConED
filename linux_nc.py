@@ -52,12 +52,12 @@ class NCListActions(core.ListActions):
         boolFiles, actdir = True, "./"
 
         while boolFiles:
-            if actdir.endswith("/"):
-                actdir = actdir[:-1]
-
             print(f"\nCurrent Dir: {actdir}")
             print(os.system(f"echo 'ls -la {actdir}' | nc -w {self.time_out_resp} {self.ip} {self.port}"))
-            option =  input("Download, Upload, Change Dir or Reset Dir (d/u/c/r): ").lower()
+            option =  input("Download, Upload, Change Dir, Home or Root Dir (d/u/c/h/r): ").lower()
+
+            if actdir.endswith("/"):
+                actdir = actdir[:-1]
 
             if option == 'd':
                 file_path = actdir + "/" + input("File to Download Server: ")
@@ -69,14 +69,17 @@ class NCListActions(core.ListActions):
             elif option == 'u':
                 file_path = "./share/" + input("File Path to Upload to Server: ")
                 
-                self.exec_remote_cmd(f"nc -l -p {self.port} > {actdir}")
+                self.exec_remote_cmd(f"[ -f {actdir} ] && rm {actdir}; nc -l -p {self.port} > {actdir}")
                 self.exec_cmd(f"nc {self.ip} {self.port} < {file_path}")
             
-            elif option == 'c':
+            elif option == 'c': 
                 actdir += "/" + input("Change Dir to: ")
             
+            elif option == 'h':
+                actdir = "~/"
+            
             elif option == 'r':
-                actdir = "./"
+                actdir = "/"
             
             else:
                 print(f"Error: Option {option} not valid")
