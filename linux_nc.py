@@ -20,6 +20,9 @@ class NCListActions(core.ListActions):
         self.predefined_commands_utils = [
             ["Google", lambda: f"google-chrome {input('Site: ')}"],
             ["Firefox", lambda: f"firefox {input('Site: ')}"],
+            ["Replace Content of a File", lambda: f"echo '{input('New Content: ')}' > {input('File Path: ')}"],
+            ["Add Content of a File", lambda: f"echo '{input('New Content: ')}' >> {input('File Path: ')}"],
+            ["View File Content", lambda: f"cat {input('File Path: ')}"],
             ["Who Am I", lambda: "whoami"],
         ]
         

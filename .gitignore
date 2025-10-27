@@ -1,0 +1,9 @@
+# Ignorar carpeta 'share' completa
+/share/
+
+# Ignorar todas las carpetas '__pycache__' donde sea que estén
+__pycache__/
+
+# (Opcional) Ignorar archivos compilados de Python (.pyc, .pyo)
+*.pyc
+*.pyo
