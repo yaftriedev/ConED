@@ -68,8 +68,9 @@ class NCListActions(core.ListActions):
             
             elif option == 'u':
                 file_path = "./share/" + input("File Path to Upload to Server: ")
+                name_file = file_path.split("/")[-1]
                 
-                self.exec_remote_cmd(f"[ -f {actdir} ] && rm {actdir}; nc -l -p {self.port} > {actdir}")
+                self.exec_remote_cmd(f"[ -f {name_file} ] && rm {name_file}; nc -l -p {self.port} -N > {name_file}")
                 self.exec_cmd(f"nc {self.ip} {self.port} < {file_path}")
             
             elif option == 'c': 
